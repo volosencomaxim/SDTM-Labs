@@ -39,6 +39,12 @@
     <Folder Include="Prototype\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractFactory\AngleBrush.cs" />
+    <Compile Include="AbstractFactory\BrushManager.cs" />
+    <Compile Include="AbstractFactory\FlatBrush.cs" />
+    <Compile Include="AbstractFactory\IAcrylicBrush.cs" />
+    <Compile Include="AbstractFactory\IBrush.cs" />
+    <Compile Include="AbstractFactory\IStandartBrush.cs" />
     <Compile Include="ArtStore.cs" />
     <Compile Include="Builder\IShopBuilder.cs" />
     <Compile Include="Builder\Supplie.cs" />
@@ -49,8 +55,12 @@
     <Compile Include="Factory\DrawingPaperFactory.cs" />
     <Compile Include="Models\Canvas.cs" />
     <Compile Include="Models\DrawingPaper.cs" />
+    <Compile Include="Models\Hake.cs" />
     <Compile Include="Models\Pastel.cs" />
     <Compile Include="Models\Pencil.cs" />
+    <Compile Include="Models\Spotter.cs" />
+    <Compile Include="Models\Stencil.cs" />
+    <Compile Include="Models\Sumi.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
