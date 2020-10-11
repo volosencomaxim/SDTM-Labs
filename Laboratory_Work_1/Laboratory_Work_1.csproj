@@ -40,11 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArtStore.cs" />
-    <Compile Include="Factory\Interfaces\IItemInfo.cs" />
-    <Compile Include="Factory\StoreFactory.cs" />
+    <Compile Include="Factory\Abstract\ShopFactory.cs" />
+    <Compile Include="Factory\Abstract\ArtItem.cs" />
+    <Compile Include="Factory\CanvasFactory.cs" />
+    <Compile Include="Factory\DrawingPaperFactory.cs" />
     <Compile Include="Models\Canvas.cs" />
     <Compile Include="Models\DrawingPaper.cs" />
-    <Compile Include="Models\ItemsType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
