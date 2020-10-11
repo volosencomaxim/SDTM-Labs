@@ -40,12 +40,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArtStore.cs" />
+    <Compile Include="Builder\IShopBuilder.cs" />
+    <Compile Include="Builder\Supplie.cs" />
+    <Compile Include="Builder\SupplieCreator.cs" />
     <Compile Include="Factory\Abstract\ShopFactory.cs" />
     <Compile Include="Factory\Abstract\ArtItem.cs" />
     <Compile Include="Factory\CanvasFactory.cs" />
     <Compile Include="Factory\DrawingPaperFactory.cs" />
     <Compile Include="Models\Canvas.cs" />
     <Compile Include="Models\DrawingPaper.cs" />
+    <Compile Include="Models\Pastel.cs" />
+    <Compile Include="Models\Pencil.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
