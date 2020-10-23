@@ -36,13 +36,13 @@ Interface:
 
 Supplie Creator:
 
-   class SupplieCreator
-    {
-        private IShopBuilder _shopBuilder;
-        public SupplieCreator(IShopBuilder shopBuilder)
+     class SupplieCreator
         {
-            _shopBuilder = shopBuilder;
-        }
+            private IShopBuilder _shopBuilder;
+            public SupplieCreator(IShopBuilder shopBuilder)
+            {
+                _shopBuilder = shopBuilder;
+            }
 
         public void CreateSupplie()
         {
@@ -59,10 +59,10 @@ Supplie Creator:
 
 Builder Example:
 
-  var pencil = new SupplieCreator(new Pencil("red", 12, 2, 1));
-  pencil.CreateSupplie();
-  pencil.GetSupplie();
-  
+      var pencil = new SupplieCreator(new Pencil("red", 12, 2, 1));
+      pencil.CreateSupplie();
+      pencil.GetSupplie();
+
 ---- I implemented Factory Method for creating items from material section because we can create different types of materials.
 
 Shop factory :
