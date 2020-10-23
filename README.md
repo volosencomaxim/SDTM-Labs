@@ -122,3 +122,8 @@ Brush creator:
         }
 
     }
+
+Example: 
+
+            IBrush acrylicBrush = new FlatBrush();
+            BrushManager acrylicManag = new BrushManager(acrylicBrush);
