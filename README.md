@@ -1,129 +1,183 @@
 # SDTM-Labs
-Topic: Creational Design Patterns
+Topic: Structural Design Patterns
 
 Author : Volosenco Maxim
 
 Introduction :
-1. studied the following creational design patterns:
+1. studied the following structural design patterns:
 
-Singleton
-Prototype
-Factory Method
-Abstract Factory
-Builder
-Object Pooling
+Adapter
+Bridge
+Composite
+Decorator
+Facade
+Flyweight
+Proxy
 
-2. implemented 3 creational design patterns :
+2. implemented 3 tructural design patterns :
 
-Factory Method
-Abstract Factory
-Builder
+Adapter
+Facade
+Flyweight
 
 
 Implementation : 
----- I implemented Builder Method for creating pencils. We can create 2 types of pencils: simple pencil and pastel.
-Interface:
+---- I used Adapter Method for Cosmopolitan, Margarita and Old_Fashioned classes. It allows to visualize information about specific drink.
 
-    interface IShopBuilder
+    class DrinkDetails : AlcoholDrink
     {
-        void SetColor();
-        void SetThickness();
-        void SetNumber();
-        void SetShade();
-        Supplie GetSupplie();
+        private CocktailsData _cocktailsData;
 
-    }
-
-Supplie Creator:
-
-     class SupplieCreator
+        public DrinkDetails(string name) : base(name)
         {
-            private IShopBuilder _shopBuilder;
-            public SupplieCreator(IShopBuilder shopBuilder)
+        }
+
+        public override void PrintData()
+        {
+            _cocktailsData = new CocktailsData();
+
+            AlcoholPercentage = _cocktailsData.GetAlcoholPercentage(DrinkName);
+            MillilitersQuantity = _cocktailsData.GetAlcoholQuantity(DrinkName, UnitType.Milliliters);
+            OZQuantity = _cocktailsData.GetAlcoholQuantity(DrinkName, UnitType.OS);
+            Recipe = _cocktailsData.GetAlcoholIngredients(DrinkName);
+
+            base.PrintData();
+
+            Console.WriteLine($"{AlcoholPercentage} %");
+            Console.WriteLine($"{MillilitersQuantity} ml");
+            Console.WriteLine($"{OZQuantity} OZ");
+            Console.WriteLine($"Recipe : {Recipe}");
+
+        }
+    }
+    public enum UnitType
+    {
+        Milliliters,
+        OS
+    }
+    class CocktailsData
+    {
+        public int GetAlcoholPercentage(string drinkName)
+        {
+            switch (drinkName.ToLower())
             {
-                _shopBuilder = shopBuilder;
+                case "margarita": return 23;
+                case "old fashioned": return 32;
+                case "cosmopolitan": return 27;
+
+                default: return 0;
             }
-
-        public void CreateSupplie()
-        {
-            _shopBuilder.SetColor();
-            _shopBuilder.SetNumber();
-            _shopBuilder.SetShade();
-            _shopBuilder.SetThickness();
-        }
-        public Supplie GetSupplie()
-        {
-            return _shopBuilder.GetSupplie();
-        }
-    }
-
-Builder Example:
-
-      var pencil = new SupplieCreator(new Pencil("red", 12, 2, 1));
-      pencil.CreateSupplie();
-      pencil.GetSupplie();
-
----- I implemented Factory Method for creating items from material section because we can create different types of materials.
-
-Shop factory :
-
-    abstract public class ShopFactory
-    {
-        public abstract ArtItem Item();
-    }
-    
-    public class CanvasFactory : ShopFactory
-    {
-        private string _material;
-        private int _length;
-        private int _width;
-        private int _price;
-        public CanvasFactory(string material, int length, int width, int price)
-        {
-            _material = material;
-            _length = length;
-            _width = width;
-            _price = price;
         }
 
-        public override ArtItem Item()
+        public float GetAlcoholQuantity(string drinkName, UnitType unitType)
         {
-            return new Canvas(_material, _length, _width, _price);
+            if (unitType == UnitType.Milliliters)
+            {
+                switch (drinkName.ToLower())
+                {
+                    case "margarita": return 118.34f;
+                    case "old fashioned": return 118.34f;
+                    case "cosmopolitan": return 95.875f;
+
+                    default: return 0;
+                }
+            }
+            else
+            {
+                switch (drinkName.ToLower())
+                {
+                    case "margarita": return 4f;
+                    case "old fashioned": return 4f;
+                    case "cosmopolitan": return 3.25f;
+
+                    default: return 0;
+                }
+            }
         }
 
+        public string GetAlcoholIngredients(string drinkName)
+        {
+            switch (drinkName.ToLower())
+            {
+                case "margarita": return new Margarita().GetRecipe();
+                case "old fashioned": return new Old_Fashioned().GetRecipe();
+                case "cosmopolitan": return new Cosmopolitan().GetRecipe();
+
+                default: return "No recipe for given drink";
+            }
+        }
     }
     
-Creating object:
+    
+---- I used Facade Method for Juices and Cocktails. It allows easy to visualize bar menu.
 
-            factories[0] = new CanvasFactory("cloth", 14, 12, 100);
-
----- I implemented Abstract Factory Method for creating brushes beacause brushes can be similar in some aspects but they can be differentiated by minor details.
-
-Brush creator:
-
-    public class BrushManager
+    class DrinksFacade
     {
-        IStandartBrush flatBrush;
-        IAcrylicBrush angleBrush;
-        public BrushManager(IBrush brush)
-        {
-            flatBrush = brush.GetFlatBrush();
-            angleBrush = brush.GetAngleBrush();
-        }
+        private IJuice _juiceProvider;
+        private ICocktail _cocktailProvider;
 
-        public string GetFlatBrushDetails()
+        public DrinksFacade()
         {
-            return flatBrush.GetDetails();
+            _juiceProvider = new JuiceProvider();
+            _cocktailProvider = new CocktailProvider();
         }
-
-        public string GetAngleBrushDelails()
+        public void GetAlcoholCocktailList()
         {
-            return angleBrush.GetDetails();
+            _cocktailProvider.AlcoholCocktail();
         }
+        public void GetNonAlcoholCocktailList()
+        {
+            _cocktailProvider.NonAlcoholCocktail();
+        }
+        public void GetFruitJuiceList()
+        {
+            _juiceProvider.FruitJuice();
+        }
+        public void GetVegetableJuiceList()
+        {
+            _juiceProvider.VegetableJuice();
+        }
+    }
+    
+---- I used Flyweight Method for creating menu based on preferences. Only the pasta menu is available :D.
 
+    class PastaFactory
+    {
+        private Dictionary<char, PastaModel> _sliders;
+        int orderTotal;
+
+        public PastaFactory(string comandOrder)
+        {
+            _sliders = new Dictionary<char, PastaModel>();
+
+            char[] chars = comandOrder.ToCharArray();
+            orderTotal = 0;
+            foreach (char c in chars)
+            {
+                orderTotal++;
+                PastaModel character = GetPasta(c);
+                character.Display(orderTotal);
+            }
+        }
+        public PastaModel GetPasta(char key)
+        {
+            PastaModel pasta = null;
+
+            if (_sliders.ContainsKey(key))
+            {
+                pasta = _sliders[key];
+            }
+            else
+            {
+                switch (key)
+                {
+                    case 'A': pasta = new Carbonara(); break;
+                    case 'R': pasta = new CrockPotSpaghetti(); break;
+                    case 'S': pasta = new ShrimpFettuccineAlfredo(); break;
+                }
+                _sliders.Add(key, pasta);
+            }
+            return pasta;
+        }
     }
 
-Example: 
-
-            IBrush acrylicBrush = new FlatBrush();
-            BrushManager acrylicManag = new BrushManager(acrylicBrush);
