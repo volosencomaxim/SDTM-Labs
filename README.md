@@ -14,7 +14,7 @@ Facade
 Flyweight
 Proxy
 
-2. implemented 3 tructural design patterns :
+2. implemented 3 structural design patterns :
 
 Adapter
 Facade
